@@ -11,6 +11,9 @@ public class MouseMovement : MonoBehaviour
     float xRotation = 0f;
     Vector2 lookInput;
 
+    [Header("Input Actions")]
+    public InputActionReference mouseAction;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,16 +29,8 @@ public class MouseMovement : MonoBehaviour
     void Update()
     {
 
-        HandleLook();
-    }
+        lookInput = mouseAction.action.ReadValue<Vector2>();
 
-    public void OnLook(InputValue value)
-    {
-        lookInput = value.Get<Vector2>();
-    }
-
-    void HandleLook()
-    {
         // Getting mouse inputs
         float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
         float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
@@ -50,5 +45,8 @@ public class MouseMovement : MonoBehaviour
 
         // Rotates body on the y axis when looking side to side
         transform.Rotate(Vector3.up * mouseX);
+
     }
+
+    
 }
